@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+build/
+*.app
+
+# Brainstorm scratch (visual companion)
+.superpowers/
+
+# Logs & env
+*.log
+.env
+.env.*
+.DS_Store
