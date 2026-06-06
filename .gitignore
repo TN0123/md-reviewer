@@ -6,6 +6,7 @@ dist/
 out/
 build/
 *.app
+*.tsbuildinfo
 
 # Brainstorm scratch (visual companion)
 .superpowers/
