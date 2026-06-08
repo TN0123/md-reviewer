@@ -1,0 +1,9 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="1024" height="1024" rx="228" fill="#FFFFFF"/>
+  <rect x="3" y="3" width="1018" height="1018" rx="226" fill="none" stroke="#E4E6EC" stroke-width="6"/>
+  <!-- Official markdown mark (outline rect + M-down-arrow), scaled 3.0 -> 624x384, centered -->
+  <g transform="translate(200,322) scale(3.0)">
+    <rect x="5" y="5" width="198" height="118" rx="14" fill="none" stroke="#1E2127" stroke-width="11"/>
+    <path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z" fill="#1E2127"/>
+  </g>
+</svg>

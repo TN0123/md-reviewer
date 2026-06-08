@@ -11,6 +11,7 @@
     "start": "electron-vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "icon": "bash branding/build-icon.sh",
     "dist": "electron-vite build && electron-builder --mac"
   },
   "dependencies": {
@@ -55,6 +56,7 @@
     },
     "mac": {
       "category": "public.app-category.developer-tools",
+      "icon": "build/icon.icns",
       "target": [
         "dir"
       ],

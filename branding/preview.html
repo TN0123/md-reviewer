@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>md-reviewer — icon (flat)</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Segoe UI, sans-serif;
+    background: #14151b;
+    color: #e7e8f0;
+    min-height: 100vh;
+    padding: 56px 32px 80px;
+  }
+  h1 { font-size: 26px; font-weight: 650; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: #9a9cb0; margin: 0 0 44px; font-size: 15px; }
+  .grid {
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    max-width: 1180px; margin: 0 auto;
+  }
+  .card {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px;
+    padding: 30px 30px 26px;
+    width: 340px;
+    display: flex; flex-direction: column; align-items: center;
+    position: relative;
+  }
+  .card.rec { border-color: rgba(255,255,255,0.4); box-shadow: 0 0 0 1px rgba(255,255,255,0.18); }
+  .badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: #e7e8f0; color: #14151b;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
+    padding: 5px 12px; border-radius: 999px; white-space: nowrap;
+  }
+  .hero { width: 232px; height: 232px; border-radius: 52px; box-shadow: 0 24px 60px -18px rgba(0,0,0,0.65); }
+  .name { margin: 22px 0 2px; font-size: 17px; font-weight: 600; }
+  .desc { margin: 0; font-size: 13px; color: #9a9cb0; text-align: center; line-height: 1.45; }
+  .sizes { display: flex; align-items: center; gap: 16px; margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.07); width: 100%; justify-content: center; }
+  .s128 { width: 96px; height: 96px; }
+  .s48 { width: 48px; height: 48px; }
+  .s24 { width: 28px; height: 28px; }
+  .slabel { font-size: 11px; color: #75778c; margin-top: 6px; text-align: center; }
+  .scol { display: flex; flex-direction: column; align-items: center; }
+  footer { text-align: center; color: #75778c; font-size: 13px; margin-top: 46px; }
+</style>
+</head>
+<body>
+  <h1>md-reviewer — flat icon, color options</h1>
+  <p class="sub">Same Markdown mark, no gradients. Shown at app size plus 96 / 48 / 28 px.</p>
+
+  <div class="grid">
+    <div class="card rec">
+      <div class="badge">Recommended</div>
+      <img class="hero" src="concept1-ink.svg" alt="Ink" />
+      <p class="name">Ink</p>
+      <p class="desc">Flat charcoal with a white mark. Timeless, reads on any wallpaper.</p>
+      <div class="sizes">
+        <div class="scol"><img class="s128" src="concept1-ink.svg"><div class="slabel">96</div></div>
+        <div class="scol"><img class="s48" src="concept1-ink.svg"><div class="slabel">48</div></div>
+        <div class="scol"><img class="s24" src="concept1-ink.svg"><div class="slabel">28</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="hero" src="concept1-light.svg" alt="Light" />
+      <p class="name">Light</p>
+      <p class="desc">Flat white with an ink mark and a hairline edge. Crisp and quiet.</p>
+      <div class="sizes">
+        <div class="scol"><img class="s128" src="concept1-light.svg"><div class="slabel">96</div></div>
+        <div class="scol"><img class="s48" src="concept1-light.svg"><div class="slabel">48</div></div>
+        <div class="scol"><img class="s24" src="concept1-light.svg"><div class="slabel">28</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="hero" src="concept1-blue.svg" alt="Blue" />
+      <p class="name">Blue</p>
+      <p class="desc">Flat blue with a white mark. A touch of color, no purple.</p>
+      <div class="sizes">
+        <div class="scol"><img class="s128" src="concept1-blue.svg"><div class="slabel">96</div></div>
+        <div class="scol"><img class="s48" src="concept1-blue.svg"><div class="slabel">48</div></div>
+        <div class="scol"><img class="s24" src="concept1-blue.svg"><div class="slabel">28</div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Pick a color and I'll generate the .icns, wire it in, and rebuild the app.</footer>
+</body>
+</html>
