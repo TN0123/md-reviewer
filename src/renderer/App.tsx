@@ -217,6 +217,18 @@ export default function App() {
     }
   }, [comments])
 
+  const clearComments = useCallback(() => {
+    if (comments.length === 0) return
+    const plural = comments.length === 1 ? 'comment' : 'comments'
+    if (!window.confirm(`Clear all ${comments.length} ${plural}? This cannot be undone.`)) return
+
+    dispatch({ type: 'clearAll' })
+    setActiveId(null)
+    setPending(null)
+    setComposing(false)
+    setToast('Comments cleared')
+  }, [comments.length, dispatch])
+
   const title = filePath ? filePath.split('/').pop() ?? filePath : 'md-reviewer'
   const baseDir = filePath ? filePath.slice(0, filePath.lastIndexOf('/')) : null
 
@@ -226,8 +238,10 @@ export default function App() {
         title={title}
         dirty={dirty}
         editing={editing}
+        commentCount={comments.length}
         onToggleEdit={() => setEditing((current) => !current)}
         onCopy={copyComments}
+        onClear={clearComments}
       />
 
       <div className="mdr-body">

@@ -60,6 +60,11 @@ describe('commentsReducer', () => {
     expect(next.map((comment) => comment.id)).toEqual(['b'])
   })
 
+  it('clearAll removes every comment', () => {
+    const next = commentsReducer([sample(), sample({ id: 'b' })], { type: 'clearAll' })
+    expect(next).toEqual([])
+  })
+
   it('resolve updates offsets and status by id', () => {
     const next = commentsReducer([sample()], {
       type: 'resolve',

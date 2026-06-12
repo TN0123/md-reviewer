@@ -8,6 +8,7 @@
   --hl: rgba(255, 213, 0, 0.42);
   --hl-stale: rgba(150, 150, 150, 0.3);
   --ok: #16a34a;
+  --danger: #dc2626;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,7 @@
     --hl: rgba(255, 213, 0, 0.34);
     --hl-stale: rgba(150, 150, 150, 0.25);
     --ok: #34d399;
+    --danger: #f87171;
   }
 }
 
@@ -66,7 +68,8 @@ body {
 }
 
 .mdr-toggle,
-.mdr-copy {
+.mdr-copy,
+.mdr-clear {
   border: 1px solid var(--border);
   background: transparent;
   color: var(--fg);
@@ -86,6 +89,18 @@ body {
   border-color: var(--accent);
   color: var(--accent);
   font-weight: 600;
+}
+
+.mdr-clear {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.mdr-clear:disabled {
+  border-color: var(--border);
+  color: var(--muted);
+  opacity: 0.5;
+  cursor: default;
 }
 
 .mdr-body {

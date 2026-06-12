@@ -5,6 +5,7 @@ export type CommentsAction =
   | { type: 'add'; comment: ReviewComment }
   | { type: 'updateText'; id: string; commentText: string }
   | { type: 'delete'; id: string }
+  | { type: 'clearAll' }
   | {
       type: 'resolve'
       resolved: { id: string; startOffset: number; endOffset: number; status: CommentStatus }[]
@@ -22,6 +23,8 @@ export function commentsReducer(state: ReviewComment[], action: CommentsAction):
       )
     case 'delete':
       return state.filter((comment) => comment.id !== action.id)
+    case 'clearAll':
+      return []
     case 'resolve': {
       const byId = new Map(action.resolved.map((resolved) => [resolved.id, resolved]))
       return state.map((comment) => {
