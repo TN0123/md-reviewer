@@ -32,6 +32,7 @@ export default function App() {
   const [toast, setToast] = useState<string | null>(null)
   const [activeId, setActiveId] = useState<string | null>(null)
   const [pending, setPending] = useState<PendingSelection | null>(null)
+  const [composing, setComposing] = useState(false)
 
   const { comments, dispatch } = useComments()
   const previewRef = useRef<HTMLDivElement>(null)
@@ -46,6 +47,7 @@ export default function App() {
       setToast(null)
       setActiveId(null)
       setPending(null)
+      setComposing(false)
       dispatch({ type: 'load', comments: loadedComments })
     })
 
@@ -117,6 +119,10 @@ export default function App() {
     if (!root.contains(range.commonAncestorContainer)) return
 
     if (sel.isCollapsed) {
+      // A plain click (no selection) dismisses any pending comment affordance
+      // and, if it landed on an existing highlight, focuses that comment.
+      setPending(null)
+      setComposing(false)
       const node = sel.anchorNode?.parentElement?.closest('mark[data-comment-id]')
       if (node) setActiveId(node.getAttribute('data-comment-id'))
       return
@@ -129,6 +135,10 @@ export default function App() {
     const fields = buildAnchorFields(ext.text, offsets.startOffset, offsets.endOffset)
     const rect = range.getBoundingClientRect()
     const rootRect = root.getBoundingClientRect()
+    // Don't open the composer yet (it would steal focus and collapse the
+    // selection, breaking copy). Just mark a pending selection; the user
+    // clicks the "Comment" affordance to actually start commenting.
+    setComposing(false)
     setPending({
       ...offsets,
       ...fields,
@@ -152,6 +162,7 @@ export default function App() {
       dispatch({ type: 'add', comment })
       setActiveId(comment.id)
       setPending(null)
+      setComposing(false)
       window.getSelection()?.removeAllRanges()
     },
     [pending, dispatch]
@@ -207,6 +218,7 @@ export default function App() {
   }, [comments])
 
   const title = filePath ? filePath.split('/').pop() ?? filePath : 'md-reviewer'
+  const baseDir = filePath ? filePath.slice(0, filePath.lastIndexOf('/')) : null
 
   return (
     <div className="mdr-app">
@@ -225,12 +237,32 @@ export default function App() {
           </div>
         )}
 
-        <Preview ref={previewRef} source={source} onMouseUp={handleSelection} />
+        <Preview ref={previewRef} source={source} basePath={baseDir} onMouseUp={handleSelection} />
 
         <div className="mdr-rail-pane">
-          {pending && (
+          {pending && !composing && (
             <div style={{ position: 'absolute', top: pending.top, right: 12, left: 12 }}>
-              <Composer quote={pending.quote} onSave={saveComment} onCancel={() => setPending(null)} />
+              <button
+                className="mdr-btn mdr-comment-cta"
+                type="button"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => setComposing(true)}
+                title="Comment on selection"
+              >
+                💬 Comment
+              </button>
+            </div>
+          )}
+          {pending && composing && (
+            <div style={{ position: 'absolute', top: pending.top, right: 12, left: 12 }}>
+              <Composer
+                quote={pending.quote}
+                onSave={saveComment}
+                onCancel={() => {
+                  setPending(null)
+                  setComposing(false)
+                }}
+              />
             </div>
           )}
           <CommentsRail

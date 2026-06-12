@@ -253,6 +253,15 @@ body {
   cursor: default;
 }
 
+.mdr-comment-cta {
+  width: auto;
+  height: auto;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
 mark.mdr-highlight {
   background: var(--hl);
   border-radius: 2px;

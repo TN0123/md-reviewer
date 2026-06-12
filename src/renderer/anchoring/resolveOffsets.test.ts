@@ -49,6 +49,30 @@ describe('resolveOffsets', () => {
     expect(r.status).toBe('anchored')
   })
 
+  it('re-anchors a long quote (>32 chars) without throwing "Pattern too long"', () => {
+    // A quote longer than diff-match-patch's Match_MaxBits (32) used to throw in
+    // the fuzzy fallback. Edit the tail (dog -> cat) so the exact paths miss and
+    // the fuzzy path runs, which is where it threw.
+    const quote = 'The quick brown fox jumps over the lazy dog'
+    expect(quote.length).toBeGreaterThan(32)
+    const text = 'Intro. The quick brown fox jumps over the lazy cat.'
+    const expectedStart = text.indexOf('The quick')
+    let r: ReturnType<typeof resolveOffsets> | undefined
+    expect(() => {
+      r = resolveOffsets(text, {
+        ...base,
+        quote,
+        prefix: 'Intro. ',
+        suffix: '.',
+        startOffset: 7,
+        endOffset: 7 + quote.length,
+        status: 'anchored'
+      })
+    }).not.toThrow()
+    expect(r!.status).toBe('anchored')
+    expect(r!.startOffset).toBe(expectedStart)
+  })
+
   it('marks stale when the quote is gone', () => {
     const text = 'completely different content now'
     const r = resolveOffsets(text, {

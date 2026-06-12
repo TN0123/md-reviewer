@@ -87,7 +87,13 @@ export function resolveOffsets(
     dmp.Match_Threshold = 0.3
     dmp.Match_Distance = 1000
     const seed = Math.min(startOffset, Math.max(0, text.length - 1))
-    const loc = dmp.match_main(text, quote, seed)
+    // diff-match-patch's bitap matcher caps the pattern at Match_MaxBits (32 on
+    // most browsers) and throws "Pattern too long for this browser" past that.
+    // Any comment on a selection longer than 32 chars hits this once exact
+    // matching fails. Match on a capped prefix to find the start, then span the
+    // full quote length from there.
+    const pattern = quote.length > dmp.Match_MaxBits ? quote.slice(0, dmp.Match_MaxBits) : quote
+    const loc = dmp.match_main(text, pattern, seed)
     if (loc !== -1) {
       return { startOffset: loc, endOffset: loc + quote.length, status: 'anchored' }
     }
