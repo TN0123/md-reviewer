@@ -13,7 +13,15 @@ export default defineConfig({
     root: '.',
     build: {
       rollupOptions: {
-        input: resolve(process.cwd(), 'index.html')
+        input: resolve(process.cwd(), 'index.html'),
+        // Stable, non-hashed filenames. Loaded over file:// in Electron, so there is no
+        // HTTP cache to bust, and content hashes only create stale-reference ERR_FILE_NOT_FOUND
+        // bugs when a packaged/installed copy points at a hash that a newer build replaced.
+        output: {
+          entryFileNames: 'assets/[name].js',
+          chunkFileNames: 'assets/[name].js',
+          assetFileNames: 'assets/[name].[ext]'
+        }
       }
     },
     resolve: {
