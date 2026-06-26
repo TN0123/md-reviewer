@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import 'highlight.js/styles/github.css'
@@ -9,6 +9,18 @@ interface PreviewProps {
   source: string
   basePath?: string | null
   onMouseUp: () => void
+}
+
+// Wrap tables so wide ones scroll horizontally inside a rounded, bordered frame
+// instead of overflowing the whole preview pane.
+const components: Components = {
+  table({ node: _node, children, ...props }) {
+    return (
+      <div className="mdr-table-wrap">
+        <table {...props}>{children}</table>
+      </div>
+    )
+  }
 }
 
 export const Preview = forwardRef<HTMLDivElement, PreviewProps>(function Preview(
@@ -21,6 +33,7 @@ export const Preview = forwardRef<HTMLDivElement, PreviewProps>(function Preview
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
         urlTransform={(url) => resolveResourceUrl(url, basePath)}
+        components={components}
       >
         {source}
       </ReactMarkdown>
