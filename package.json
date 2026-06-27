@@ -1,10 +1,28 @@
 {
   "name": "md-reviewer",
   "version": "0.1.0",
-  "description": "Markdown reviewer with comments",
+  "description": "A macOS desktop app for reviewing Markdown: highlight rendered text, leave sidebar comments, and copy them all out for a coding agent.",
   "main": "./out/main/index.js",
   "author": "Tanay Naik",
+  "license": "MIT",
   "private": true,
+  "homepage": "https://github.com/TN0123/md-reviewer#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TN0123/md-reviewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TN0123/md-reviewer/issues"
+  },
+  "keywords": [
+    "markdown",
+    "review",
+    "comments",
+    "annotation",
+    "electron",
+    "macos",
+    "coding-agent"
+  ],
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",

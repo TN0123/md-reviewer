@@ -130,7 +130,12 @@ function buildMenu(): Electron.Menu {
     { role: 'windowMenu' },
     {
       label: 'Help',
-      submenu: [{ label: 'md-reviewer', click: () => shell.openExternal('https://github.com') }]
+      submenu: [
+        {
+          label: 'md-reviewer on GitHub',
+          click: () => shell.openExternal('https://github.com/TN0123/md-reviewer')
+        }
+      ]
     }
   ])
 }
